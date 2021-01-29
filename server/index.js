@@ -17,6 +17,7 @@ module.exports = app
 if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
+console.log(`Mixing it up on port ${PORT}`)
 
 /**
  * In your development environment, you can keep all of your

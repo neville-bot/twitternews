@@ -1,17 +1,29 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Tweet} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  const users = [
+    {email: 'bamboo@email.com', password: '123'},
+    {email: 'eskeeetit@email.com', password: '123'}
+  ]
+  const tweets = [
+    {body: 'I have 11 toes',author:'John Swenson'},
+    {body: 'twenty one pilots are the goat',author:'John Swenson'},
+    {body: 'Trump is MY president',author:'K-Dot'},
+    {body: 'Whered you go? I miss you so',author:'Frank Kiish'},
+    {body: 'DO NOT GIVE IN TO THE ELITES',author:'Quack'},
+    {body: 'K-Pop is life',author:'Star-Star'},
+    {body: 'Cheifs are going to be back-to-back champs',author:'NeckBear'},
+    {body: 'I miss the old ameria',author:'Racy-randy'}
 
+  ]
+  await User.bulkCreate(users)
+  await Tweet.bulkCreate(tweets)
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
